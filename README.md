@@ -41,6 +41,13 @@ var  options = { region: 'localhost', endpoint: "http://localhost:8000" },
      dynamodb = {raw: new AWS.DynamoDB(options) , doc: new AWS.DynamoDB.DocumentClient(options) };
 ```
 
+Note: for the 'init' method, the migration directory path should be absolute path. Following example shows how to refer the adbolute path
+```
+var path = require('path');
+var relPath = 'migrations';
+var absolutePath = path.dirname(__filename) + '/' + relPath;
+```
+
 Supported methods
 
 ```
