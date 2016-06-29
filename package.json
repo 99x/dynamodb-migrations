@@ -26,6 +26,7 @@
     "main": "index.js",
     "bin": {},
     "dependencies": {
-        "mkdirp": "^0.5.0"
+        "mkdirp": "^0.5.0",
+        "bluebird": "^3.0.6"
     }
 }
