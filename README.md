@@ -59,7 +59,7 @@ executeAll()(tableOptions)               To execute all the migration files to c
 
 ## Migration Template
 
-```
+```json
 {
     "Table": {
         "TableName": "TableName",
