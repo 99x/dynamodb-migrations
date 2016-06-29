@@ -1,6 +1,10 @@
 'use strict';
 
 var migrations = require('./dynamodb/migrations'),
+    tableOpt = {
+        prefix: "",
+        suffix: ""
+    },
     dynamo, dir;
 
 var manager = {
@@ -14,6 +18,7 @@ var manager = {
         });
     },
     execute: function (migrationName, tableOptions) {
+        tableOptions = tableOptions || tableOpt;
         return migrations.execute(dynamo, {
             dir: dir,
             migrationName: migrationName,
@@ -22,7 +27,8 @@ var manager = {
         });
     },
     executeAll: function (tableOptions) {
-        return migrations.execute(dynamo, {
+        tableOptions = tableOptions || tableOpt;
+        return migrations.executeAll(dynamo, {
             dir: dir,
             tablePrefix: tableOptions.prefix,
             tableSuffix: tableOptions.suffix
