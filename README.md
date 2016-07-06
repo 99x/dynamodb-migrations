@@ -54,7 +54,7 @@ Supported methods
 init(dynamodb, migrationsDir)            To initialize DynamoDB Client Instances to execute queries and to initialize the directory where migration files exists
 create(migrationName)                    To create a new template with migrationName included, which you can modify to include other attributes and seed data. More information on migration template is shown in the following section.
 execute(migrationName, tableOptions)     To execute a single migration file. This create the tables if they don't exists and runs the seeds defined in the migration file. tableOptions provides, tablePrefix and tableSuffix attributes to be set, if the actual table is different from migration name
-executeAll()(tableOptions)               To execute all the migration files to create tables and run all the seeds
+executeAll(tableOptions)               To execute all the migration files to create tables and run all the seeds
 ```
 
 ## Migration Template
