@@ -27,11 +27,10 @@ var manager = {
         });
     },
     executeAll: function (tableOptions) {
-        tableOptions = tableOptions || tableOpt;
         return migrations.executeAll(dynamo, {
             dir: dir,
-            tablePrefix: tableOptions.prefix,
-            tableSuffix: tableOptions.suffix
+            tablePrefix: tableOptions.prefix || tableOpt.prefix,
+            tableSuffix: tableOptions.suffix || tableOpt.suffix
         });
     }
 };
