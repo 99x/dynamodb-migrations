@@ -18,12 +18,11 @@ var manager = {
         });
     },
     execute: function (migrationName, tableOptions) {
-        tableOptions = tableOptions || tableOpt;
         return migrations.execute(dynamo, {
             dir: dir,
             migrationName: migrationName,
-            tablePrefix: tableOptions.prefix,
-            tableSuffix: tableOptions.suffix
+            tablePrefix: tableOptions.prefix || tableOpt.prefix,
+            tableSuffix: tableOptions.suffix || tableOpt.suffix
         });
     },
     executeAll: function (tableOptions) {
