@@ -9,7 +9,7 @@ var createTable = function (dynamodb, migration) {
             if (err) {
                 console.log(err);
             } else {
-                console.log("Table creation completed for : " + migration.Table.TableName);
+                console.log("Table creation completed for table: " + migration.Table.TableName);
             }
             resolve(migration);
         });
@@ -34,15 +34,24 @@ var runSeeds = function (dynamodb, migration) {
     };
     params.RequestItems[migration.Table.TableName] = batchSeeds;
     return new BbPromise(function (resolve, reject) {
-        dynamodb.doc.batchWrite(params, function (err) {
-            if (err) {
-                console.log(err);
-                reject(err);
-            } else {
-                console.log("Seed running complete for table: " + migration.Table.TableName);
-                resolve(migration);
-            }
-        });
+        var interval = 0,
+            execute = function (interval) {
+                setTimeout(function () {
+                    dynamodb.doc.batchWrite(params, function (err) {
+                        if (err) {
+                            if (err.code === "ResourceNotFoundException" && interval <= 5000) {
+                                execute(interval + 1000);
+                            } else {
+                                reject(err);
+                            }
+                        } else {
+                            console.log("Seed running complete for table: " + migration.Table.TableName);
+                            resolve(migration);
+                        }
+                    });
+                }, interval);
+            };
+        execute(interval);
     });
 };
 
