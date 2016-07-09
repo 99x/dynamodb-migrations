@@ -32,7 +32,7 @@ dm = require("dynamodb-migrations");
 var dynamodb = {raw: new AWS.DynamoDB() , doc: new AWS.DynamoDB.DocumentClient() };
 dm.init(dynamodb, '<myprojectroot>/<migrations>'); /* This method requires multiple dynamodb instances with default Dynamodb client and Dynamodb Document Client. All the other methods depends on this. */
 dm.create('sampleTable'); /* Use gulp, grunt or serverless to integrate this with the commandline, modify the created template file with your custom table schema and seed data */
-dm.execute('sampleTable', { tablePrefix: 'dev-', tableSuffix: '-sample'}); /* This executes the 'sampleTable' migration. Note: second parameter is optional
+dm.execute('sampleTable', { prefix: 'dev-', suffix: '-sample'}); /* This executes the 'sampleTable' migration. Note: second parameter is optional. With prefix and suffix actual table name e.g dev-<tablename>-sample
 ```
 
 Note: For dynamodb local you can initialize the dynamodb variable as follows
