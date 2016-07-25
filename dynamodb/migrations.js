@@ -21,38 +21,44 @@ var formatTableName = function (migration, options) {
 };
 
 var runSeeds = function (dynamodb, migration) {
-    var params,
-        batchSeeds = migration.Seeds.map(function (seed) {
-            return {
-                PutRequest: {
-                    Item: seed
-                }
-            };
+    if (!migration.Seeds || !migration.Seeds.length) {
+        return new BbPromise(function (resolve) {
+            resolve(migration);
         });
-    params = {
-        RequestItems: {}
-    };
-    params.RequestItems[migration.Table.TableName] = batchSeeds;
-    return new BbPromise(function (resolve, reject) {
-        var interval = 0,
-            execute = function (interval) {
-                setTimeout(function () {
-                    dynamodb.doc.batchWrite(params, function (err) {
-                        if (err) {
-                            if (err.code === "ResourceNotFoundException" && interval <= 5000) {
-                                execute(interval + 1000);
+    } else {
+        var params,
+            batchSeeds = migration.Seeds.map(function (seed) {
+                return {
+                    PutRequest: {
+                        Item: seed
+                    }
+                };
+            });
+        params = {
+            RequestItems: {}
+        };
+        params.RequestItems[migration.Table.TableName] = batchSeeds;
+        return new BbPromise(function (resolve, reject) {
+            var interval = 0,
+                execute = function (interval) {
+                    setTimeout(function () {
+                        dynamodb.doc.batchWrite(params, function (err) {
+                            if (err) {
+                                if (err.code === "ResourceNotFoundException" && interval <= 5000) {
+                                    execute(interval + 1000);
+                                } else {
+                                    reject(err);
+                                }
                             } else {
-                                reject(err);
+                                console.log("Seed running complete for table: " + migration.Table.TableName);
+                                resolve(migration);
                             }
-                        } else {
-                            console.log("Seed running complete for table: " + migration.Table.TableName);
-                            resolve(migration);
-                        }
-                    });
-                }, interval);
-            };
-        execute(interval);
-    });
+                        });
+                    }, interval);
+                };
+            execute(interval);
+        });
+    }
 };
 
 var create = function (migrationName, options) {
