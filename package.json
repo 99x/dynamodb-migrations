@@ -11,6 +11,9 @@
     "type": "git",
     "url": "https://github.com/99xt/dynamodb-migrations"
   },
+  "scripts": {
+    "test": "jshint dynamodb"
+  },
   "keywords": [
     "aws",
     "dynamodb",

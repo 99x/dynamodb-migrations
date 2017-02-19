@@ -63,7 +63,7 @@ var writeSeedBatch = function(dynamodb, tableName, seeds) {
             };
         execute(interval);
     });
-}
+};
 
 var runSeeds = function(dynamodb, migration) {
     if (!migration.Seeds || !migration.Seeds.length) {
