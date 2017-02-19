@@ -1,17 +1,17 @@
 {
-    "name": "dynamodb-migrations",
-    "version": "0.0.10",
-    "engines": {
-        "node": ">=4.0"
-    },
-    "description": "Dynamodb migrations for devops",
-    "author": "99xtechnology.com",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/99xt/dynamodb-migrations"
-    },
-    "keywords": [
+  "name": "dynamodb-migrations",
+  "version": "0.0.10",
+  "engines": {
+    "node": ">=4.0"
+  },
+  "description": "Dynamodb migrations for devops",
+  "author": "99xtechnology.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/99xt/dynamodb-migrations"
+  },
+  "keywords": [
     "aws",
     "dynamodb",
     "dynamo",
@@ -23,10 +23,11 @@
     "local-dynamodb",
     "dynamodb-local"
   ],
-    "main": "index.js",
-    "bin": {},
-    "dependencies": {
-        "mkdirp": "^0.5.0",
-        "bluebird": "^3.0.6"
-    }
+  "main": "index.js",
+  "bin": {},
+  "dependencies": {
+    "bluebird": "^3.0.6",
+    "lodash": "^4.17.4",
+    "mkdirp": "^0.5.0"
+  }
 }
