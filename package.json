@@ -32,5 +32,8 @@
     "bluebird": "^3.0.6",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.0"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.4"
   }
 }
