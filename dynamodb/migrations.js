@@ -8,7 +8,11 @@ var createTable = function(dynamodb, migration) {
     return new BbPromise(function(resolve) {
         dynamodb.raw.createTable(migration.Table, function(err) {
             if (err) {
-                console.log(err);
+                if (err.message.split(":")[0] === "Table already exists") {
+                    console.log(err.message);
+                } else {
+                    console.log(err);
+                }
             } else {
                 console.log("Table creation completed for table: " + migration.Table.TableName);
             }
