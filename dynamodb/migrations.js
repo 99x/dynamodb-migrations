@@ -8,7 +8,7 @@ var createTable = function(dynamodb, migration) {
     return new BbPromise(function(resolve) {
         dynamodb.raw.createTable(migration.Table, function(err) {
             if (err && err.code === 'ResourceInUseException' ) {
-                // just print mesage if table alredy exists
+                // just print message if table already exists
                 console.log(err.message);
             } else if (err) {
                 console.log(err);
