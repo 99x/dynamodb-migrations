@@ -7,7 +7,10 @@ var BbPromise = require('bluebird'),
 var createTable = function(dynamodb, migration) {
     return new BbPromise(function(resolve) {
         dynamodb.raw.createTable(migration.Table, function(err) {
-            if (err) {
+            if (err && err.code === 'ResourceInUseException' ) {
+                // just print message if table already exists
+                console.log(err.message);
+            } else if (err) {
                 console.log(err);
             } else {
                 console.log("Table creation completed for table: " + migration.Table.TableName);
